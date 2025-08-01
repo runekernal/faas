@@ -1,50 +1,64 @@
-# 🤖 Feelings-as-a-Service (FaaS)
+# FEELINGS‑AS‑A‑SERVICE (FaaS)
 
-**FaaS** is a light-hearted Flutter app that imagines what your everyday objects might say — if they had feelings.
+## 🦜 Basic Details
 
-📷 Take a photo or upload an image, and the app will:
-- Use **Google ML Kit** to detect objects in the image (e.g., bottle, bag, pen)
-- Identify the most probable object
-- Generate a short, witty message either:
-  - **Apologizing to** the object
-  - Or a **complaint from** the object
-
-All in one tap — fun, fast, and a little bit useless (on purpose — it was built for a “useless hackathon”)!
+**Team Name:** Replicate
+**Team Members:**
+- Misva Anjal
+- Farsana S
 
 ---
 
-## 🧠 Tech Stack
+## 💡 Project Description
 
-| Component         | Technology Used                           |
-|------------------|--------------------------------------------|
-| Object Detection | [Google ML Kit](https://developers.google.com/ml-kit/vision/object-detection/flutter) |
-| Text Generation  | Custom API powered by an LLM (e.g., Groq API, Ollama, etc.) |
-| Frontend         | Flutter (Dart)                             |
+FaaS is a Flutter app that detects everyday objects (like bottles, pens or bags) using **Google ML Kit**, and then writes:
+- A heartfelt **apology to** the object
+- Or a dramatic **complaint from** the object’s perspective
 
----
-
-## 🚀 Features
-
-- Detects common objects in images using on-device ML (no cloud required)
-- Sends detected object names to an AI API
-- Receives short, humorous messages: either an apology or a complaint
-- Cross-platform Flutter UI (currently Android tested)
-- Optional text-to-speech support
+Because object feelings matter too.
 
 ---
 
-## 🔧 Getting Started
+## 🤔 The Problem (that doesn't exist)
 
-### Prerequisites
+Objects don’t get hurt feelings.  
+We’re giving them voices anyway.
 
-- Flutter SDK (version 3.10+ recommended)
-- Android Studio or VS Code with Flutter plugin
-- Android device or emulator
+---
 
-### Installation
+## 🧩 The Solution (that nobody asked for)
 
-1. **Clone the repository**
+You take a picture, the app recognizes an object, then… bam! It either apologizes to it or complains like it’s a living thing.
 
-   ```bash
-   git clone https://github.com/your-username/faas.git
-   cd faas
+---
+
+## Screenshots
+![Screenshot](medias/screenshot_1.png)
+![Screenshot](medias/screenshot_2.png)
+![Screenshot](medias/screenshot_3.png)
+![Screenshot](medias/screenshot_4.png)
+![Screenshot](medias/screenshot_5.png)
+
+## Videos
+https://drive.google.com/file/d/1mD9_Rlz4WC-AuiNv4CBYTQJckzFX7UmL/view?usp=sharing
+## 🛠️ Technical Details
+
+### Software
+- Flutter (UI framework)
+- **Google ML Kit** — for on-device object detection
+- HTTP requests to a Groq LLM API endpoint that generates messages (apologies/complaints)
+
+
+### Hardware
+- Android phone or emulator
+- No weird sensors, just the camera
+
+---
+
+## 🧱 Installation
+
+```bash
+git clone https://github.com/your-username/faas.git
+cd faas
+flutter pub get
+flutter run

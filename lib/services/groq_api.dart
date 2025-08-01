@@ -27,7 +27,7 @@ Future<String> getResponse(String mode, String style, String objectName) async {
     'Authorization': 'Bearer $apiKey',
   };
 
-  final prompt = (mode == "apology")
+  final prompt = (mode == "Apology")
       ? "Create an apology to a(n) $objectName"
       : "Create a complaint pretending to be a(n) $objectName";
   
