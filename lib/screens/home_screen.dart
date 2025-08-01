@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:faas/services/object_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../widgets/animated_toggle_chip.dart';
@@ -6,6 +7,7 @@ import '../widgets/image_preview_container.dart';
 import 'result_screen.dart';
 import '../services/groq_api.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../services/object_detector.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -142,9 +144,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       });
 
       try {
-        // Simulate API call delay (remove this in real implementation)
+        await MobileNetService.loadModel();
+        String? object = await MobileNetService.classify(_selectedImage!.path);
         await dotenv.load();
-        final result = await getResponse(_selectedMode, _selectedStyle, "shoe");
+        final result = await getResponse(_selectedMode, _selectedStyle, object!);
 
         // final result = await YourAPIService.generateText(
         //   image: _selectedImage!,
