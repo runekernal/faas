@@ -144,9 +144,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       });
 
       try {
-        final objectDetector = ObjectDetectionService();
+        final objectDetector = ObjectLabelerService();
         String? object = await objectDetector.classify(_selectedImage!.path);
         objectDetector.dispose();
+
+
         if (object == null || object.isEmpty) {
           throw Exception('No object detected in the image');
         }

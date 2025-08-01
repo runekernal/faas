@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
 
-class ObjectDetectionService {
+class ObjectLabelerService {
   final ImageLabeler _labeler;
 
-  ObjectDetectionService()
+  ObjectLabelerService()
       : _labeler = ImageLabeler(
           options: ImageLabelerOptions(confidenceThreshold: 0.6),
         );
