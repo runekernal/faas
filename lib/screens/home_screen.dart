@@ -144,10 +144,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       });
 
       try {
-        await MobileNetService.loadModel();
-        String? object = await MobileNetService.classify(_selectedImage!.path);
+        final objectDetector = ObjectDetectionService();
+        String? object = await objectDetector.classify(_selectedImage!.path);
+        objectDetector.dispose();
+        if (object == null || object.isEmpty) {
+          throw Exception('No object detected in the image');
+        }
         await dotenv.load();
-        final result = await getResponse(_selectedMode, _selectedStyle, object!);
+        final result = await getResponse(_selectedMode, _selectedStyle, object);
 
         // final result = await YourAPIService.generateText(
         //   image: _selectedImage!,
@@ -171,6 +175,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     mode: _selectedMode,
                     style: _selectedStyle,
                     message: result,
+                    object: object,
                   ),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {

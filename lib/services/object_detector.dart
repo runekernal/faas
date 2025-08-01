@@ -1,39 +1,32 @@
-import 'package:tflite/tflite.dart';
+import 'dart:io';
+import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
 
-class MobileNetService {
-  static Future<void> loadModel() async {
-    try {
-      final result = await Tflite.loadModel(
-        model: "assets/mobilenet_v1_1.0_224.tflite",
-        labels: "assets/labels.txt",
-      );
-    } catch (e) {
-      throw Exception("Error loading MobileNet model: $e");
-      print("$e");
-    }
+class ObjectDetectionService {
+  final ImageLabeler _labeler;
+
+  ObjectDetectionService()
+      : _labeler = ImageLabeler(
+          options: ImageLabelerOptions(confidenceThreshold: 0.6),
+        );
+
+  /// Takes a [filePath] and returns the most probable label or null.
+  Future<String?> classify(String filePath) async {
+    final imageFile = File(filePath);
+    if (!imageFile.existsSync()) return null;
+
+    final inputImage = InputImage.fromFile(imageFile);
+    final labels = await _labeler.processImage(inputImage);
+
+    if (labels.isEmpty) return null;
+
+    // Sort labels by confidence (highest first)
+    labels.sort((a, b) => b.confidence.compareTo(a.confidence));
+
+    return labels.first.label;
   }
 
-  static Future<String?> classify(String imagePath) async {
-    try {
-      final predictions = await Tflite.runModelOnImage(
-        path: imagePath,
-        imageMean: 127.5,
-        imageStd: 127.5,
-        numResults: 1,
-        threshold: 0.5,
-      );
-
-      if (predictions != null && predictions.isNotEmpty) {
-        final label = predictions.first['label'] as String;
-        return label.replaceAll(RegExp(r'^\d+:\s*'), '').trim(); // clean "0: label"
-      }
-      return null;
-    } catch (e) {
-      throw Exception("Classification failed: $e");
-    }
-  }
-
-  static Future<void> dispose() async {
-    await Tflite.close();
+  /// Call this to release resources
+  void dispose() {
+    _labeler.close();
   }
 }

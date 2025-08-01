@@ -7,6 +7,7 @@ class ResultScreen extends StatefulWidget {
   final String mode;
   final String style;
   final String message;
+  final String object;
 
   const ResultScreen({
     super.key,
@@ -14,6 +15,7 @@ class ResultScreen extends StatefulWidget {
     required this.mode,
     required this.style,
     required this.message,
+    required this.object,
   });
 
   @override
@@ -193,7 +195,7 @@ class _ResultScreenState extends State<ResultScreen>
                     ),
                     child: Center(
                       child: Text(
-                        'Style: "${widget.style}"',
+                        'Object: "${widget.object}"',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontStyle: FontStyle.italic,
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
