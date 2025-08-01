@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import '../widgets/animated_toggle_chip.dart';
 import '../widgets/image_preview_container.dart';
 import 'result_screen.dart';
+import '../services/groq_api.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -141,7 +143,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
       try {
         // Simulate API call delay (remove this in real implementation)
-        await Future.delayed(const Duration(seconds: 2));
+        await dotenv.load();
+        final result = await getResponse(_selectedMode, _selectedStyle, "shoe");
 
         // final result = await YourAPIService.generateText(
         //   image: _selectedImage!,
@@ -164,6 +167,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     image: _selectedImage!,
                     mode: _selectedMode,
                     style: _selectedStyle,
+                    message: result,
                   ),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
@@ -296,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 spacing: 8,
                 runSpacing: 8,
                 children:
-                    ['Random', 'Baby', 'Corporate', 'Shakespearean', 'Normal']
+                    ['Random', 'Baby', 'Corporate', 'Shakespearean', 'Normal', 'Sarcastic', 'Emotional']
                         .map(
                           (style) => _StyleChip(
                             label: style,

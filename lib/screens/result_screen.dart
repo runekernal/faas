@@ -5,13 +5,15 @@ import '../widgets/animated_text_reveal.dart';
 class ResultScreen extends StatefulWidget {
   final File image;
   final String mode;
-  final String style; // Added style parameter
+  final String style;
+  final String message;
 
   const ResultScreen({
     super.key,
     required this.image,
     required this.mode,
-    required this.style, // Added to constructor
+    required this.style,
+    required this.message,
   });
 
   @override
@@ -25,37 +27,6 @@ class _ResultScreenState extends State<ResultScreen>
   late Animation<double> _imageAnimation;
   late Animation<Offset> _textSlideAnimation;
   late Animation<double> _textFadeAnimation;
-
-  String get _mockMessage {
-    // Generate message based on both mode and style
-    if (widget.mode == 'Apology') {
-      switch (widget.style) {
-        case 'Baby':
-          return "Sowwy widdle object! 🥺\n\nMe vewy sowwy for being mean to you! You so pwetty and nice, and me was bad bad human. Pwease forgive me?\n\nMe pwomise to be nice!\n\nWuv,\nA sowwy human 👶";
-        case 'Corporate':
-          return "Dear Valued Object,\n\nWe sincerely regret any inconvenience our actions may have caused to your operational efficiency. Please accept our formal apology for this oversight.\n\nWe are committed to improving our object-human relations moving forward.\n\nBest regards,\nHuman Resources Department";
-        case 'Shakespearean':
-          return "Dearest Object of Mine Affection,\n\nVerily, I doth humbly beseech thy pardon for mine grievous transgressions against thy noble form. Thou art a thing of beauty, and I, but a foolish mortal, have wronged thee most shamefully.\n\nPray, accept mine heartfelt contrition.\n\nThine humble servant,\nA Repentant Soul";
-        case 'Random':
-          return "BEEP BOOP! 🤖\n\nERROR 404: Rudeness detected. Initiating apology protocol...\n\n*Sprinkles digital glitter* ✨ You're absolutely magnificent, dear object! My circuits are overloaded with regret for not appreciating your pixelated perfection sooner.\n\nRebooting with kindness.exe\n\n01001000 01110101 01101101 01100001 01101110";
-        default: // Normal
-          return "Dear Object,\n\nI sincerely apologize for any inconvenience I may have caused you. Your existence brings joy to this world, and I deeply regret not acknowledging your importance sooner.\n\nWith heartfelt remorse,\nA Humble Human";
-      }
-    } else { // Complaint
-      switch (widget.style) {
-        case 'Baby':
-          return "Hey you dumb dumb object! 😤\n\nYou not doing what me want! Me vewy angwy at you! You supposed to be good but you just sit there like a silly billy!\n\nMe no like you!\n\nAngwy baby human 👶💢";
-        case 'Corporate':
-          return "FORMAL COMPLAINT - REF: OBJ-2024-001\n\nTo Whom It May Concern,\n\nWe must formally document our dissatisfaction with this object's performance metrics. Key issues include: suboptimal visual presentation, inadequate functionality parameters, and failure to meet stakeholder expectations.\n\nImmediate corrective action required.\n\nRegards,\nQuality Assurance Team";
-        case 'Shakespearean':
-          return "Thou Cursed and Wretched Thing!\n\nWhat manner of sorcery is this? Thou dost sit there, mocking me with thy silent insolence! Art thou not ashamed of thy pathetic existence? Verily, I have seen garden stones with more purpose!\n\nA pox upon thee and thy lineage!\n\nIn great vexation,\nA Most Displeased Gentleman";
-        case 'Random':
-          return "🚨 COMPLAINT ALERT 🚨\n\nThis object has committed CRIMES against aesthetic sensibility! It's just sitting there... MENACINGLY! 😱\n\n*Shakes fist at sky* Why do you torment me so, inanimate universe?! I demand to speak to the manager of reality!\n\n*Dramatic sigh*\n\nChaotically yours,\nA Confused Human";
-        default: // Normal
-          return "To Whom It May Concern,\n\nI must formally complain about this object's behavior. It has been sitting there, looking absolutely unremarkable, and frankly, I expected more.\n\nI demand immediate improvement in its overall presentation and functionality.\n\nSincerely disappointed,\nA Concerned Citizen";
-      }
-    }
-  }
 
   @override
   void initState() {
@@ -237,7 +208,7 @@ class _ResultScreenState extends State<ResultScreen>
 
               // Animated Text Message
               AnimatedTextReveal(
-                text: _mockMessage,
+                text: widget.message,
                 controller: _textController,
               ),
 

@@ -1,4 +1,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- ❷  Camera access for taking a picture with image_picker -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <!-- ❸  Read images already on the device
+         ▸ API 33+ uses the new READ_MEDIA_IMAGES permission
+         ▸ Older APIs still use READ_EXTERNAL_STORAGE            -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
+        android:maxSdkVersion="33"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32"/>
+
+    <!-- ❹  Declare that the camera is optional (prevents Play Store
+             from filtering devices that have no camera) -->
+    <uses-feature android:name="android.hardware.camera"
+        android:required="false"/>
     <application
         android:label="faas"
         android:name="${applicationName}"
